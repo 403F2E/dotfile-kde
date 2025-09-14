@@ -1,3 +1,4 @@
+local lazy = require("lazy")
 return {
 	{
 		"stevearc/conform.nvim",
@@ -22,27 +23,29 @@ return {
 		ft = { "markdown" },
 	},
 
-	-- image preview: those plugins used for images preview
 	{
-		"vhyrro/luarocks.nvim",
-		priority = 1001, -- this plugin needs to run before anything else
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@type snacks.Config
 		opts = {
-			rocks = { "magick" },
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+			bigfile = { enabled = true },
+			dashboard = { enabled = true },
+			explorer = { enabled = true },
+			indent = { enabled = true },
+			input = { enabled = true },
+			picker = { enabled = true },
+			notifier = { enabled = true },
+			quickfile = { enabled = true },
+			scope = { enabled = true },
+			scroll = { enabled = true },
+			statuscolumn = { enabled = true },
+			words = { enabled = true },
 		},
 	},
-	{
-		"3rd/image.nvim",
-		dependencies = { "luarocks.nvim" },
-		ft = { "png", "jpg", "jpeg", "gif", "webp", "svg" },
-		config = function()
-			require("image").setup({
-				backend = "kitty",
-				max_height_window_percentage = 50,
-				hijack_file_patterns = { ".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg" },
-			})
-		end,
-	},
-
 	-- git
 	{
 		"tpope/vim-fugitive",
