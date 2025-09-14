@@ -21,19 +21,26 @@ return {
 		end,
 		ft = { "markdown" },
 	},
-	-- image viewers : holo for markdown // image_preview for normal images // telescope_image_preview for telescope
+
+	-- image preview: those plugins used for images preview
 	{
-		"edluffy/hologram.nvim",
+		"vhyrro/luarocks.nvim",
+		priority = 1001, -- this plugin needs to run before anything else
+		opts = {
+			rocks = { "magick" },
+		},
 	},
 	{
-		"adelarsq/image_preview.nvim",
-		event = "VeryLazy",
+		"3rd/image.nvim",
+		dependencies = { "luarocks.nvim" },
+		ft = { "png", "jpg", "jpeg", "gif", "webp", "svg" },
 		config = function()
-			require("image_preview").setup()
+			require("image").setup({
+				backend = "kitty",
+				max_height_window_percentage = 50,
+				hijack_file_patterns = { ".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg" },
+			})
 		end,
-	},
-	{
-		"nvim-telescope/telescope-media-files.nvim",
 	},
 
 	-- git
