@@ -25,6 +25,15 @@ require("lazy").setup({
 	{ import = "plugins" },
 }, lazy_config)
 
+--- enabling the lsp configs
+local lspconfig = vim.lsp.enable
+
+lspconfig("jdtls")
+lspconfig("rust-analyzer")
+lspconfig("pyright")
+lspconfig("clangd")
+---
+
 require("flutter-tools").setup({})
 
 local tele = require("telescope")

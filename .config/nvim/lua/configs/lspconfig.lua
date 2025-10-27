@@ -2,7 +2,7 @@
 require("nvchad.configs.lspconfig").defaults()
 
 local nvlsp = require("nvchad.configs.lspconfig")
-local lspconfig = require("lspconfig")
+local lspconfig = vim.lsp.config
 
 local on_attach = function(client)
 	-- Enable keymaps and capabilities
@@ -61,9 +61,9 @@ capabilities.textDocument = {
 local servers = { "html", "cssls" }
 
 -- lsps with default config
-for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup({
-
+-- ---
+for _, lsp in pairs(servers) do
+	lspconfig(lsp, {
 		on_attach = on_attach,
 		on_init = nvlsp.on_init,
 		capabilities = capabilities,
@@ -71,17 +71,19 @@ for _, lsp in ipairs(servers) do
 	})
 end
 
-lspconfig.lua_ls.setup({
+-- ---
+
+lspconfig("lua_ls", {
 	on_attach = on_attach,
 	on_init = nvlsp.on_init,
 	capabilities = capabilities,
 	filetypes = { "lua" },
 })
 
-lspconfig.ts_ls.setup({
+lspconfig("ts_ls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
-	root_dir = lspconfig.util.root_pattern("next.config.js", "next.config.ts", "package.json", ".git"),
+	root_dir = require("lspconfig.util").root_pattern("next.config.js", "next.config.ts", "package.json", ".git"),
 	filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
 	init_options = {
 		preferences = {
@@ -97,7 +99,7 @@ lspconfig.ts_ls.setup({
 	},
 })
 
-lspconfig.eslint.setup({
+lspconfig("eslint", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 	filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
@@ -125,7 +127,7 @@ lspconfig.eslint.setup({
 	},
 })
 
-lspconfig.tailwindcss.setup({
+lspconfig("tailwindcss", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 	filetypes = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
@@ -152,7 +154,7 @@ lspconfig.tailwindcss.setup({
 	},
 })
 
-lspconfig.pyright.setup({
+lspconfig("pyright", {
 	on_attach = on_attach,
 	on_init = nvlsp.on_init,
 	capabilities = capabilities,
@@ -171,7 +173,7 @@ lspconfig.pyright.setup({
 	filetype = { "python" },
 })
 
-lspconfig.clangd.setup({
+lspconfig("clangd", {
 	on_attach = on_attach,
 	on_init = nvlsp.on_init,
 	filetype = { "c", "cpp", "h", "objc", "objcpp", "cuda", "proto" },
@@ -186,10 +188,11 @@ lspconfig.clangd.setup({
 	},
 })
 
-lspconfig.jdtls.setup({
+lspconfig("jdtls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
-	root_dir = lspconfig.util.root_pattern("pom.xml", "gradle.build", ".git"),
+	lazy = false,
+	root_dir = require("lspconfig.util").root_pattern("pom.xml", "gradle.build", ".git"),
 	cmd = {
 		"java",
 		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
@@ -205,7 +208,7 @@ lspconfig.jdtls.setup({
 		"--add-opens",
 		"java.base/java.lang=ALL-UNNAMED",
 		"-jar",
-		vim.fn.stdpath("data") .. "/mason/share/jdtls/plugins/org.eclipse.equinox.launcher_1.7.0.v20250331-1702.jar", -- Wildcard for version
+		vim.fn.stdpath("data") .. "/mason/share/jdtls/plugins/org.eclipse.equinox.launcher_*.*.*.*.jar", -- Wildcard for version
 		"-configuration",
 		vim.fn.stdpath("data") .. "/mason/packages/jdtls/config_linux", -- Changed from config_win to config_linux
 		"-data",
@@ -242,13 +245,13 @@ lspconfig.jdtls.setup({
 	},
 })
 
-lspconfig.rust_analyzer.setup({
+lspconfig("rust_analyzer", {
 	on_attach = on_attach,
 	on_init = nvlsp.on_init,
 	capabilities = capabilities,
 	filetype = { "rust", "toml" },
 	cmd = { "rust-analyzer" }, -- Uses the binary from your PATH
-	root_dir = lspconfig.util.root_pattern("Cargo.toml", ".git", "*.rs"),
+	root_dir = require("lspconfig.util").root_pattern("Cargo.toml", ".git", "*.rs"),
 	settings = {
 		["rust-analyzer"] = {
 			cargo = {
@@ -267,7 +270,7 @@ lspconfig.rust_analyzer.setup({
 	},
 })
 
-lspconfig.intelephense.setup({
+lspconfig("intelephense", {
 	on_attach = on_attach,
 	on_init = nvlsp.on_init,
 	capabilities = capabilities,
