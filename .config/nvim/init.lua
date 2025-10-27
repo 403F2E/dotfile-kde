@@ -29,7 +29,7 @@ require("lazy").setup({
 local lspconfig = vim.lsp.enable
 
 lspconfig("jdtls")
-lspconfig("rust-analyzer")
+lspconfig("rust_analyzer")
 lspconfig("pyright")
 lspconfig("clangd")
 ---

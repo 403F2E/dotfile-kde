@@ -208,7 +208,7 @@ lspconfig("jdtls", {
 		"--add-opens",
 		"java.base/java.lang=ALL-UNNAMED",
 		"-jar",
-		vim.fn.stdpath("data") .. "/mason/share/jdtls/plugins/org.eclipse.equinox.launcher_*.*.*.*.jar", -- Wildcard for version
+		vim.fn.glob(vim.fn.stdpath("data") .. "/mason/share/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"), -- Wildcard for version
 		"-configuration",
 		vim.fn.stdpath("data") .. "/mason/packages/jdtls/config_linux", -- Changed from config_win to config_linux
 		"-data",
