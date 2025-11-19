@@ -25,6 +25,7 @@ alias cat="bat"
 alias vi="nvim"
 alias v='nvim'
 alias open="xdg-open"
+alias med_encoder="~/Desktop/Editing/script_encoding.sh"
 
 # alias fzf="fzf --preview='bat --color=always {}' --bind 'enter:become( cd $(dirname "{}") && echo $(dirname "{}") && sleep 2 && nvim .)'"
 
@@ -82,6 +83,10 @@ fastfetch -c ~/.config/fastfetch/config_new.jsonc
 # fastfetch. Will be disabled if above colorscript was chosen to install
 # fastfetch -c $HOME/.config/fastfetch/config-compact.jsonc
 
+# Music download function 
+ytb-dl() {
+  youtube-dl -x --audio-format mp3 --audio-quality 320k -o '%(title)s.%(ext)s' $1
+}
 
 doxy() { cd ~/Desktop/Stuff/Books/Docs/ }
 ru() { cd ~/Desktop/Stuff/Projects/Rust/ }
