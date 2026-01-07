@@ -102,3 +102,5 @@ prog() { cd ~/Desktop/Stuff/Projects/ }
 leet() { cd ~/Desktop/Stuff/Projects/Leetcode/}
 pentest() { cd ~/Desktop/PenTEST/ }
 dev() { cd ~/Desktop/Stuff/Projects/Dev/ }
+alias cls="clear"
+export PATH="$PATH:$HOME/.dotnet/tools"
