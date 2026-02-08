@@ -1,8 +1,0 @@
--- require("core.mappings")
-require("core.options")
-require("core.plugins")
-require("core.configs")
-
-require("lazy").setup({
-	{ import = "plugins" },
-}, { import = "core.plugins" }, require("core.configs.lazy"))
